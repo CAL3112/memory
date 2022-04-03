@@ -1,15 +1,20 @@
-const cartes = document.querySelectorAll('.carte');
-
+const cartes = document.querySelectorAll('.box');
 console.log(cartes);
-
 cartes.onclick = retourner;
 cartes.mouseover = survol;
-console.log(cartes);
+
+apparition();
+
+function apparition(){
+    cartes.forEach(carte => {setTimeout(() => {
+    carte.classList.add('carte');
+}, 1000);}) 
+}
+
+
 
 function retourner(){
-    cartes.forEach(carte => console.log(carte));
 }
 
 function survol(){
-    cartes.classList.add('survol');
 }
