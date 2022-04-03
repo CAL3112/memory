@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="zone_de_jeu">
+        <div class="carte "></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+        <div class="carte"></div>
+    </div>
+
+<script type="text/javascript">
+
+const cartes = document.querySelectorAll('.carte');
+console.log(cartes);
+
+cartes.onclick = retourner;
+cartes.mouseover = survol;
+
+function retourner(){
+    cartes.forEach(carte => console.log(carte));
+}
+
+function survol(){
+    carte.classList.add('survol');
+}
+
+</script>
+
+</body>
+</html>
