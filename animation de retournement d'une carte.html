@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Titre du document</title>
+
+    <style>
+      .zone_de_jeu {
+        background-color: transparent;
+        width: 220px;
+        height: 300px;
+        perspective: 1000px;
+      }
+      .carte {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s;
+        transform-style: preserve-3d;
+      }
+      .zone_de_jeu:hover .carte {
+        transform: rotateY(180deg);
+      }
+      .carte-cachee,.carte-visible {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+      }
+      .carte-cachee {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #cccccc;
+        color: #111111;
+      }
+      .carte-visible {
+        background-color: #8ebf42;
+        color: #eeeeee;
+        transform: rotateY(180deg);
+      }
+      img{
+          width: 50%;
+          display: block;
+      }
+    </style>
+    
+</head>
+     <body>
+        <div class="zone_de_jeu">
+            <div class="carte">
+                <div class="carte-cachee">
+                    <img class="logo" src="assets/logo.svg">
+                </div>
+                <div class="carte-visible">
+                    <h2>Face arrière</h2>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -1,7 +1,8 @@
 
 const zone_de_jeu = document.querySelector('.zone_de_jeu');
-var nbCarteRetournee = 0;
 var nbCarteMemo = 20;
+
+// Créer le nombre de cartes que l'on souhaite (par défaut 20)
 
 creerDesCartes(nbCarteMemo);
 
@@ -10,31 +11,39 @@ function creerDesCartes(nbCarte) {
     let nouvelleCarte = document.createElement('div');
     nouvelleCarte.className = "carte"
     zone_de_jeu.appendChild(nouvelleCarte);
+    let nouvelleCarteDos = document.createElement('div');
+    nouvelleCarteDos.className = "carte-cachee"
+    var cartes = document.querySelectorAll('.carte');
+    cartes[i].appendChild(nouvelleCarteDos);
+    let nouvelleCarteFace = document.createElement('div');
+    nouvelleCarteFace.className = "carte-visible"
+    cartes[i].appendChild(nouvelleCarteFace);
+    
     }
 }
+
+// Ajoute un logo au dos des cartes
 
 inserLogo();
 
 function inserLogo() {
-var cartes = document.querySelectorAll('.carte');       
-cartes.forEach((carte) => {
-    let logo = document.createElement('img');
-    logo.className = "logo"
-    logo.src = "assets/logo.svg";
-    carte.appendChild(logo);
-})
-
-}
-
-var cartes = document.querySelectorAll('.carte');       
-cartes.forEach((carte, indice) => {
-    carte.onclick = retourne(indice);
-})
-
-function retourne(carte) {
-    console.log('retourne');
-        carte.classList.add('retourne');
-        nbCarteRetournee++;
-        console.log("nbCarteRetournee : "+nbCarteRetournee);
-        
+    var cartesCachee = document.querySelectorAll('.carte-cachee');       
+    cartesCachee.forEach((carte) => {
+        let logo = document.createElement('img');
+        logo.className = "logo"
+        logo.src = "assets/logo.svg";
+        carte.appendChild(logo);
+        }
+    )
 };
+
+// Pour retourner les cartes au clic
+
+var cartes = document.querySelectorAll('.carte');       
+var cartes_face_cachee = document.querySelectorAll('.carte-cachee');       
+var cartes_face_visible = document.querySelectorAll('.carte-visible');       
+cartes.forEach((carte, indice) => {
+    carte.onclick = () => {
+        carte.classList.add('retourne');
+    };
+});
