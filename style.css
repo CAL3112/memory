@@ -43,3 +43,14 @@ body{
     border: 1px solid black;
     padding: 0.5%;
 }
+
+.retourne{
+    transition: 1000ms;
+    background-color: brown;
+    transform: rotateY(-180);
+}
+
+.retourne .logo{
+    transition: 1000ms;
+    width: 0;
+}

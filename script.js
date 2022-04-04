@@ -1,18 +1,40 @@
 
 const zone_de_jeu = document.querySelector('.zone_de_jeu');
+var nbCarteRetournee = 0;
+var nbCarteMemo = 20;
 
-creerLesCartes();
+creerDesCartes(nbCarteMemo);
 
-function creerLesCartes () {
-    console.log("je suis censé créer les cartes");
-    var nouvelleCarte = document.createElement('div', class="carte");
-    var insererLogo = document.createElement('img');
-    insererLogo.src = "assets/logo.svg"
-          
-
-    for (let i = 0; i < 20; i++) {
-        zone_de_jeu.append(nouvelleCarte);
-        nouvelleCarte.classList.add('carte');
-        console.log(i);
+function creerDesCartes(nbCarte) {
+    for (let i = 0; i < nbCarte; i++) {
+    let nouvelleCarte = document.createElement('div');
+    nouvelleCarte.className = "carte"
+    zone_de_jeu.appendChild(nouvelleCarte);
     }
 }
+
+inserLogo();
+
+function inserLogo() {
+var cartes = document.querySelectorAll('.carte');       
+cartes.forEach((carte) => {
+    let logo = document.createElement('img');
+    logo.className = "logo"
+    logo.src = "assets/logo.svg";
+    carte.appendChild(logo);
+})
+
+}
+
+var cartes = document.querySelectorAll('.carte');       
+cartes.forEach((carte, indice) => {
+    carte.onclick = retourne(indice);
+})
+
+function retourne(carte) {
+    console.log('retourne');
+        carte.classList.add('retourne');
+        nbCarteRetournee++;
+        console.log("nbCarteRetournee : "+nbCarteRetournee);
+        
+};
