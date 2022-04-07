@@ -32,6 +32,20 @@ body{
 	float: left;
 	padding-top: 100%; 	/* initial ratio of 1:1*/
 }
+.carteTrouvee{
+    display: flex;
+    transition: 500ms;
+    width: 17%;
+    margin: 1.5%;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transform-style: preserve-3d;
+}
+.carteTrouvee:before {
+	content: "";
+	float: left;
+	padding-top: 100%; 	/* initial ratio of 1:1*/
+}
 .carte-cachee{
     cursor: pointer;
     background-color: #d63f3f;
