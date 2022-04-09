@@ -3,9 +3,8 @@
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    background-color: rgb(216, 216, 216);
-}
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap');
+
 .zone_de_jeu{
     display: flex;
     width: 50%;
@@ -34,7 +33,7 @@ body{
 }
 .carteTrouvee{
     display: flex;
-    transition: 500ms;
+    transition: 1000ms;
     width: 17%;
     margin: 1.5%;
     border-radius: 10px;
@@ -67,7 +66,7 @@ body{
     height: 50%;
 }
 .retournee {
-    transition: 2000ms;
+    transition: 1000ms;
     transform: rotateY(180deg);
 }
 .carte-cachee,.carte-visible{
@@ -104,4 +103,28 @@ body{
     font-family: 'Courier New', Courier, monospace;
     top: 2%;
     left: 2%;
+}
+.hidden{
+    opacity: 0;
+}
+.section-header{
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    text-align: center;
+}
+h1{
+    font-size: 4vw;
+    padding: 10px 30px;
+    background-color: rgb(243, 215, 186);
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    font-family: 'Rubik Moonrocks', cursive;
+    cursor: default;
+    animation: infiniteTranslate .5s ease-in-out  infinite alternate;
+}
+
+@keyframes infiniteTranslate {
+    from { transform: translateX(-15px);}
+    to { transform: translateX(15px);}
 }
