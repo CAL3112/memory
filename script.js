@@ -1,6 +1,8 @@
 // Variables
-const affichage = document.querySelector('.affichage');
+const resultat = document.querySelector('.resultat');
 const zone_de_jeu = document.querySelector('.zone_de_jeu');
+const votreScore = document.querySelector('.votreScore');
+const rejouer = document.querySelector('.rejouer');
 const spanScore = document.querySelector('.score');
 const spanNbCoup = document.querySelector('.nbCoup');
 const nbJoueur = document.querySelectorAll('.nbJoueur');
@@ -49,6 +51,7 @@ nbJoueur[3].onclick = () => {
 
 
 btnJouer.onclick = () => {
+    zone_de_jeu.classList.remove('displayNone')
     var NbJoueurSelected = document.querySelector('.selected');
     var modeDeJeu = NbJoueurSelected.id;
     var choixTheme = document.querySelector('#choixTheme');
@@ -61,9 +64,6 @@ btnJouer.onclick = () => {
 
 function start(nbCarteMemo, mode, theme) {
     var numCarteMaxi = nbCarteMemo/2;
-    affichage.classList.remove('hidden')
-    spanScore.innerHTML = "SCORE : "+score+"/"+numCarteMaxi;
-    spanNbCoup.innerHTML = "Vous en êtes au tour : "+nbCoupsPourTrouver;    
     for (let i = 0; i < nbCarteMemo; i++) {
         let nouvelleCarte = document.createElement('div');
         nouvelleCarte.className = "carte hidden";
@@ -149,7 +149,6 @@ function verification() {
     if (nbCarteRetourneeActuellement < 2) { // permet d'attendre que 2 cartes soient retournées
     } else if (imagesCartesRetourneesActuellement[0].childNodes[1].childNodes[0].className != imagesCartesRetourneesActuellement[1].childNodes[1].childNodes[0].className){ // cas où les 2 cartes retournées sont différentes
         nbCoupsPourTrouver++;
-        spanNbCoup.innerHTML = "Vous en êtes au tour : "+nbCoupsPourTrouver;
         let cartesRetournee = document.querySelectorAll('.retournee');
         setTimeout(() => {
             cartesRetournee.forEach((carte) => {
@@ -182,12 +181,26 @@ function verification() {
         },2020);
         
         score++;
+        
     }
-    setTimeout(() => { // maj du score
-        spanScore.innerHTML = "SCORE : "+score+"/"+numCarteMaxi;
-        spanNbCoup.innerHTML = "Vous en êtes au tour : "+nbCoupsPourTrouver;
-        }, 2500);
-}
+    setTimeout(() => {
+        var fini = score/numCarteMaxi;
+        if (fini == 1) {
+            zone_de_jeu.classList.add('displayNone')
+            resultat.classList.remove('displayNone');
+            votreScore.innerHTML = "Vous avez mis <b>"+nbCoupsPourTrouver+"</b> tours pour tout trouver."
+            rejouer.onclick = () => {
+                resultat.classList.add('displayNone')
+                pageAccueil.classList.remove('displayNone')
+                score = 0;
+                nbCoupsPourTrouver = 0;
+                var trouvee = document.querySelectorAll('.trouvee');
+                trouvee.forEach((e) => {
+                    zone_de_jeu.removeChild(e);
+                })
+            }
+        }    
+    },2800)}
 
 }
 
