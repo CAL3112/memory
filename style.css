@@ -2,52 +2,53 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
 }
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap');
-
-.zone_de_jeu{
+body{
+    background-color: #1c2541;
+}
+h1{
+    font-size: 50px;
+    padding: 10px 30px;
+    background-color: #eee0cb;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    font-family: 'Rubik Moonrocks', cursive;
+    cursor: default;
+    color: #1c2541;
+}
+.section-header{
     display: flex;
-    width: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    padding: 20px 0;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.section-zone_de_jeu{
+    width: 100%;
+    height: auto;
+}
+.zone_de_jeu{
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    grid-gap: 30px;
+    justify-content: center;
     perspective: 1000px;
 }
 .carte{
     display: flex;
     transition: 500ms;
-    width: 17%;
-    margin: 1.5%;
+    width: 130px;
+    height: 130px;
+    min-width: 80px;
+    min-height: 80px;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     transform-style: preserve-3d;
-}
-.carte:before {
-	content: "";
-	float: left;
-	padding-top: 100%; 	/* initial ratio of 1:1*/
-}
-.carteTrouvee{
-    display: flex;
-    transition: 1000ms;
-    width: 17%;
-    margin: 1.5%;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    transform-style: preserve-3d;
-}
-.carteTrouvee:before {
-	content: "";
-	float: left;
-	padding-top: 100%; 	/* initial ratio of 1:1*/
 }
 .carte-cachee{
     cursor: pointer;
-    background-color: #d63f3f;
+    background-color: #ffffff;
 }
 .carte-visible{
     background-color: #ffffff;
@@ -80,23 +81,12 @@
     align-items: center;
     justify-content: center; 
 }
-.trouvee{
-    transition: 0ms;
-    opacity: 0;
-    width: 17%;
-    margin: 1.5%;
-}
-.trouve::before{
-    content: "";
-	float: left;
-	padding-top: 100%; 	/* initial ratio of 1:1*/
-}
 .affichage{
     display: flex;
     width: 300px;
     padding: 10px;
     border-radius: 10px;
-    background-color: aquamarine;
+    background-color: #689689;
     flex-direction: column;
     position: absolute;
     opacity: 0.8;
@@ -107,24 +97,86 @@
 .hidden{
     opacity: 0;
 }
-.section-header{
+.page-accueil{
+    width: 50%;
+    height: 60vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;transform: translate(-50%, -50%);
+    background-color: #eee0cb;
+    padding: 50px;
+    border-radius: 10px;
+}
+h2{
+    text-align: center;
+    padding: 10px;
+    font-size: 40px;
+    margin-bottom: 50px;
+    font-family: 'Rubik Moonrocks', cursive;
+    color: #1c2541;
+}
+.p-reglage, .nbJoueur{
+    font-size: 25px;
+    width: 250px;
+    color: #1c2541;
+    font-weight: 600;
+}
+.nbJoueur-container, .choixTheme-container{
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    min-width: 420px;
+}
+select{
+    font-size: 1.25em;
+    margin: 10px;
+    padding: 10px;
+    background-color: #1c2541;
+    color: #eee0cb;
+    border-radius: 5px;
+}
+.nbJoueur{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    width: 45px;
+    height: 45px;
+    padding: 10px 16px;
+    background-color: #1c2541;
+    border-radius: 5px;
+    color: #eee0cb;
+    cursor: pointer;
+}
+.flex{
+    display: flex;
+}
+.btn-jouer{
+    color: #1c2541;
+    cursor: pointer;
+    font-family: 'Rubik Moonrocks', cursive;
+    font-weight: 600;
+    margin: auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 5%;
     display: flex;
     justify-content: center;
-    padding: 20px 0;
-    text-align: center;
-}
-h1{
-    font-size: 4vw;
-    padding: 10px 30px;
-    background-color: rgb(243, 215, 186);
+    width: 150px;
+    font-size: 1.5vw;
+    padding: 15px 25px;
+    background-color: #689689;
     border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    font-family: 'Rubik Moonrocks', cursive;
-    cursor: default;
-    animation: infiniteTranslate .5s ease-in-out  infinite alternate;
+    border: 2px solid transparent;
 }
-
-@keyframes infiniteTranslate {
-    from { transform: translateX(-15px);}
-    to { transform: translateX(15px);}
+.btn-jouer:hover{
+    transition: 200ms;
+    border: 2px solid #1c2541;
+}
+.selected{
+    border: 2px solid crimson;
+}
+.displayNone{
+    display: none;
 }

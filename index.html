@@ -6,8 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <div class="page-accueil">
+        <h2>Réglages</h2>
+        <div class="nbJoueur-container">
+            <p class="p-reglage">Nombre de joueur :</p>
+            <div class="flex">
+                <div id="1" class="nbJoueur selected">1</div>
+                <div id="2" class="nbJoueur">2</div>
+                <div id="3" class="nbJoueur">3</div>
+                <div id="4" class="nbJoueur">4</div>
+            </div>
+          
+        </div>
+        <div class="choixTheme-container">
+            <p class="p-reglage">Choix du thème :</p>
+            <div class="flex">
+                <select name="theme" id="choixTheme">
+                    <option value="couleurs">Les Couleurs (12 paires)</option>
+                    <option value="zodiaque">Signes du Zodiaque (12 paires)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="btn-jouer">JOUER</div>
+
+    </div>
 
     <section class="section-header">
         <h1>MEMORY</h1>

@@ -3,23 +3,68 @@ const affichage = document.querySelector('.affichage');
 const zone_de_jeu = document.querySelector('.zone_de_jeu');
 const spanScore = document.querySelector('.score');
 const spanNbCoup = document.querySelector('.nbCoup');
-var nbCarteMemo = 20;
-var numCarteMaxi = nbCarteMemo/2;
+const nbJoueur = document.querySelectorAll('.nbJoueur');
+const btnJouer = document.querySelector('.btn-jouer');
+const pageAccueil = document.querySelector('.page-accueil');
+
+var nbCarteMemo;
 var nbCarteRetourneeActuellement = 0;
 var nbCoupsPourTrouver = 0;
 var score = 0;
+var tpsMemorisation = 2000; // temps pour mémoriser les cartes (en ms)
+
+// retournerTout(); // Function pour le débug
+
+function retournerTout() {
+    let toutesLesCartes = document.querySelectorAll('.carte');
+    toutesLesCartes.forEach((anyCarte) => {
+        anyCarte.classList.add('retournee');
+    })
+    
+}
+nbJoueur[0].onclick = () => {
+    nbJoueur[0].classList.add('selected')
+    nbJoueur[1].classList.remove('selected')
+    nbJoueur[2].classList.remove('selected')
+    nbJoueur[3].classList.remove('selected')
+}
+nbJoueur[1].onclick = () => {
+    nbJoueur[1].classList.add('selected')
+    nbJoueur[0].classList.remove('selected')
+    nbJoueur[2].classList.remove('selected')
+    nbJoueur[3].classList.remove('selected')
+}
+nbJoueur[2].onclick = () => {
+    nbJoueur[2].classList.add('selected')
+    nbJoueur[0].classList.remove('selected')
+    nbJoueur[1].classList.remove('selected')
+    nbJoueur[3].classList.remove('selected')
+}
+nbJoueur[3].onclick = () => {
+    nbJoueur[3].classList.add('selected')
+    nbJoueur[0].classList.remove('selected')
+    nbJoueur[1].classList.remove('selected')
+    nbJoueur[2].classList.remove('selected')
+}
 
 
-// Créer le nombre de cartes que l'on souhaite (par défaut 20)
+btnJouer.onclick = () => {
+    var NbJoueurSelected = document.querySelector('.selected');
+    var modeDeJeu = NbJoueurSelected.id;
+    var choixTheme = document.querySelector('#choixTheme');
+    var theme = choixTheme.options[choixTheme.selectedIndex].value;
+    if(theme == "couleurs") nbCarteMemo = 24;
+    if(theme == "zodiaque") nbCarteMemo = 24;
+    pageAccueil.classList.add('displayNone');
+    start(nbCarteMemo, modeDeJeu, theme);
+}
 
-//lancementDuJeu(nbCarteMemo);
-
-function lancementDuJeu(nbCarte) {
+function start(nbCarteMemo, mode, theme) {
+    var numCarteMaxi = nbCarteMemo/2;
     affichage.classList.remove('hidden')
     spanScore.innerHTML = "SCORE : "+score+"/"+numCarteMaxi;
     spanNbCoup.innerHTML = "Vous en êtes au tour : "+nbCoupsPourTrouver;    
-
-    for (let i = 0; i < nbCarte; i++) {
+    for (let i = 0; i < nbCarteMemo; i++) {
         let nouvelleCarte = document.createElement('div');
         nouvelleCarte.className = "carte hidden";
         zone_de_jeu.appendChild(nouvelleCarte);
@@ -31,12 +76,11 @@ function lancementDuJeu(nbCarte) {
         nouvelleCarteFace.className = "carte-visible";
         cartes[i].appendChild(nouvelleCarteFace);
     }
-    inserLogo();   
-    inserImage();
+    //inserLogo();   
+    inserImage(theme);
     appararition();
-}
 
-// Ajoute le logo au dos des cartes sur les faces cachees (.carte-cachee)
+    // Ajoute le logo au dos des cartes sur les faces cachees (.carte-cachee)
 
 function inserLogo() {
     var cartesCachee = document.querySelectorAll('.carte-cachee');       
@@ -51,7 +95,7 @@ function inserLogo() {
 
 // Ajoute les images (de manière aléatoire) sur les faces visibles (.carte-visible)
 
-function inserImage() {
+function inserImage(theme) {
     var cartesVisible = document.querySelectorAll('.carte-visible');
     for (let i = 0; i < cartesVisible.length; i++) {
         var image = document.createElement('img'); 
@@ -60,7 +104,7 @@ function inserImage() {
         let imagesAttribuees = document.getElementsByClassName(nbRandom);
         if (imagesAttribuees.length < 2) {
             image.className = nbRandom;                                 
-            image.src = "assets/"+nbRandom+".png";
+            image.src = "assets/"+theme+"/"+nbRandom+".svg";
         } else {
             for (let i = 0; i < numCarteMaxi+1; i++) {
                 tableauImg = document.getElementsByClassName(i);
@@ -68,16 +112,12 @@ function inserImage() {
                     imgDispo = i;
                 }  
                 image.className = imgDispo;                                 
-                image.src = "assets/"+imgDispo+".png"; 
+                image.src = "assets/"+theme+"/"+imgDispo+".svg"; 
                 //console.log(nb);          
             }
         }
     } 
 }
-
-
-var cartes = document.querySelectorAll('.carte');
-console.log(cartes);
 
 //animation d'appararition des cartes
 function appararition() {
@@ -88,13 +128,11 @@ function appararition() {
     }
 }
 
-
-
 // Pour retourner les cartes au clic
 
 cartes.forEach((carte) => {
     carte.onclick = () => {
-    if (nbCarteRetourneeActuellement < 2 && carte.className != "trouvee carteTrouvee retournee" && carte.className != "trouvee carteTrouvee" && carte.className != "carte retournee") {
+    if (nbCarteRetourneeActuellement < 2 && carte.className != "trouvee" && carte.className != "carte retournee") { //pour ne pas autoriser la fct verification des cartes déjà trouvées et déja retournées (erreur de vérif des classes des enfants)
         nbCarteRetourneeActuellement++;
         carte.classList.add('retournee');
         verification();
@@ -118,7 +156,7 @@ function verification() {
                 carte.classList.remove('retournee');
                 nbCarteRetourneeActuellement = 0;
             })
-        }, 3000); //temps pour mémoriser les cartes
+        }, tpsMemorisation);
     } else { // cas où les cartes retournées sont identiques
         nbCoupsPourTrouver++;
         let cartesRetournee = document.querySelectorAll('.retournee');
@@ -133,11 +171,6 @@ function verification() {
         },2010);
         setTimeout(() => {
             cartesRetournee.forEach((carte) => {
-            carte.classList.add('carteTrouvee');
-            })
-        },2020);
-        setTimeout(() => {
-            cartesRetournee.forEach((carte) => {
                 carte.classList.remove('carte');
             })
             let imgVisible = document.querySelectorAll('div');
@@ -145,24 +178,17 @@ function verification() {
             imagesCartesRetourneesActuellement[0].removeChild(imagesCartesRetourneesActuellement[0].childNodes[0]);
             imagesCartesRetourneesActuellement[1].removeChild(imagesCartesRetourneesActuellement[1].childNodes[0]);
             imagesCartesRetourneesActuellement[1].removeChild(imagesCartesRetourneesActuellement[1].childNodes[0]);
-        },2030);
-        nbCarteRetourneeActuellement = 0;
+            nbCarteRetourneeActuellement = 0;
+        },2020);
+        
         score++;
     }
     setTimeout(() => { // maj du score
         spanScore.innerHTML = "SCORE : "+score+"/"+numCarteMaxi;
         spanNbCoup.innerHTML = "Vous en êtes au tour : "+nbCoupsPourTrouver;
-        }, 2000);
+        }, 2500);
 }
 
-// Function pour le débug
-
-//retournerTout();
-
-function retournerTout() {
-    let toutesLesCartes = document.querySelectorAll('.carte');
-    toutesLesCartes.forEach((anyCarte) => {
-        anyCarte.classList.add('retournee');
-    })
-    
 }
+
+
