@@ -8,7 +8,6 @@ const spanNbCoup = document.querySelector('.nbCoup');
 const nbJoueur = document.querySelectorAll('.nbJoueur');
 const btnJouer = document.querySelector('.btn-jouer');
 const pageAccueil = document.querySelector('.page-accueil');
-
 var nbCarteMemo;
 var nbCarteRetourneeActuellement = 0;
 var nbCoupsPourTrouver = 0;
@@ -22,7 +21,6 @@ function retournerTout() {
     toutesLesCartes.forEach((anyCarte) => {
         anyCarte.classList.add('retournee');
     })
-    
 }
 nbJoueur[0].onclick = () => {
     nbJoueur[0].classList.add('selected')
@@ -48,8 +46,6 @@ nbJoueur[3].onclick = () => {
     nbJoueur[1].classList.remove('selected')
     nbJoueur[2].classList.remove('selected')
 }
-
-
 btnJouer.onclick = () => {
     zone_de_jeu.classList.remove('displayNone')
     var NbJoueurSelected = document.querySelector('.selected');
@@ -61,7 +57,6 @@ btnJouer.onclick = () => {
     pageAccueil.classList.add('displayNone');
     start(nbCarteMemo, modeDeJeu, theme);
 }
-
 function start(nbCarteMemo, mode, theme) {
     var numCarteMaxi = nbCarteMemo/2;
     for (let i = 0; i < nbCarteMemo; i++) {
@@ -143,9 +138,7 @@ cartes.forEach((carte) => {
 // Fonction qui en fonction des 2 cartes retournées, attribut ou non 1 point de score et retourne ou élimine les cartes
 
 function verification() {
-
     let imagesCartesRetourneesActuellement = document.querySelectorAll('.retournee');
-
     if (nbCarteRetourneeActuellement < 2) { // permet d'attendre que 2 cartes soient retournées
     } else if (imagesCartesRetourneesActuellement[0].childNodes[1].childNodes[0].className != imagesCartesRetourneesActuellement[1].childNodes[1].childNodes[0].className){ // cas où les 2 cartes retournées sont différentes
         nbCoupsPourTrouver++;
@@ -179,9 +172,7 @@ function verification() {
             imagesCartesRetourneesActuellement[1].removeChild(imagesCartesRetourneesActuellement[1].childNodes[0]);
             nbCarteRetourneeActuellement = 0;
         },2020);
-        
         score++;
-        
     }
     setTimeout(() => {
         var fini = score/numCarteMaxi;
@@ -200,8 +191,5 @@ function verification() {
                 })
             }
         }    
-    },2800)}
-
+    },2900)}
 }
-
-
