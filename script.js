@@ -14,7 +14,7 @@ var nbCoupsPourTrouver = 0;
 var score = 0;
 var tpsMemorisation = 2000; // temps pour mémoriser les cartes (en ms)
 
-// retournerTout(); // Function pour le débug
+retournerTout(); // Function pour le débug
 
 function retournerTout() {
     let toutesLesCartes = document.querySelectorAll('.carte');
@@ -43,6 +43,7 @@ btnJouer.onclick = () => {
     if(theme == "zodiaque") nbCarteMemo = 24;
     pageAccueil.classList.add('displayNone');
     start(nbCarteMemo, modeDeJeu, theme);
+    
 }
 function start(nbCarteMemo, mode, theme) {
     var numCarteMaxi = nbCarteMemo/2;
@@ -106,7 +107,7 @@ function appararition() {
     for (let i = 0; i < nbCarteMemo; i++) {
         setTimeout(() => {
             cartes[i].classList.remove('hidden')
-        }, 100*i);
+        }, 100*i);//
     }
 }
 
