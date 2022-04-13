@@ -22,37 +22,24 @@ function retournerTout() {
         anyCarte.classList.add('retournee');
     })
 }
-nbJoueur[0].onclick = () => {
-    nbJoueur[0].classList.add('selected')
-    nbJoueur[1].classList.remove('selected')
-    nbJoueur[2].classList.remove('selected')
-    nbJoueur[3].classList.remove('selected')
-}
-nbJoueur[1].onclick = () => {
-    nbJoueur[1].classList.add('selected')
-    nbJoueur[0].classList.remove('selected')
-    nbJoueur[2].classList.remove('selected')
-    nbJoueur[3].classList.remove('selected')
-}
-nbJoueur[2].onclick = () => {
-    nbJoueur[2].classList.add('selected')
-    nbJoueur[0].classList.remove('selected')
-    nbJoueur[1].classList.remove('selected')
-    nbJoueur[3].classList.remove('selected')
-}
-nbJoueur[3].onclick = () => {
-    nbJoueur[3].classList.add('selected')
-    nbJoueur[0].classList.remove('selected')
-    nbJoueur[1].classList.remove('selected')
-    nbJoueur[2].classList.remove('selected')
-}
+nbJoueur.forEach((e) => {
+ e.onclick = () => {
+    console.log(e);
+    e.classList.add('selected');
+    for (let i = 0; i < nbJoueur.length; i++) {
+        if (nbJoueur[i] !== e) {
+            nbJoueur[i].classList.remove('selected')
+        }
+    } 
+ }
+})
 btnJouer.onclick = () => {
     zone_de_jeu.classList.remove('displayNone')
     var NbJoueurSelected = document.querySelector('.selected');
     var modeDeJeu = NbJoueurSelected.id;
     var choixTheme = document.querySelector('#choixTheme');
     var theme = choixTheme.options[choixTheme.selectedIndex].value;
-    if(theme == "couleurs") nbCarteMemo = 24;
+    if(theme == "couleurs") nbCarteMemo = 4;
     if(theme == "zodiaque") nbCarteMemo = 24;
     pageAccueil.classList.add('displayNone');
     start(nbCarteMemo, modeDeJeu, theme);
@@ -138,9 +125,9 @@ cartes.forEach((carte) => {
 // Fonction qui en fonction des 2 cartes retournées, attribut ou non 1 point de score et retourne ou élimine les cartes
 
 function verification() {
-    let imagesCartesRetourneesActuellement = document.querySelectorAll('.retournee');
+    var cartesRetournees = document.querySelectorAll('.retournee');
     if (nbCarteRetourneeActuellement < 2) { // permet d'attendre que 2 cartes soient retournées
-    } else if (imagesCartesRetourneesActuellement[0].childNodes[1].childNodes[0].className != imagesCartesRetourneesActuellement[1].childNodes[1].childNodes[0].className){ // cas où les 2 cartes retournées sont différentes
+    } else if (cartesRetournees[0].childNodes[1].childNodes[0].className != cartesRetournees[1].childNodes[1].childNodes[0].className){ // cas où les 2 cartes retournées sont différentes
         nbCoupsPourTrouver++;
         let cartesRetournee = document.querySelectorAll('.retournee');
         setTimeout(() => {
@@ -151,27 +138,10 @@ function verification() {
         }, tpsMemorisation);
     } else { // cas où les cartes retournées sont identiques
         nbCoupsPourTrouver++;
-        let cartesRetournee = document.querySelectorAll('.retournee');
-        setTimeout(() => {
-            imagesCartesRetourneesActuellement[0].classList.add('trouvee');
-            imagesCartesRetourneesActuellement[1].classList.add('trouvee');
-            }, 2000);
-        setTimeout(() => {
-            cartesRetournee.forEach((carte) => {
-            carte.classList.remove('retournee');
-            })
-        },2010);
-        setTimeout(() => {
-            cartesRetournee.forEach((carte) => {
-                carte.classList.remove('carte');
-            })
-            let imgVisible = document.querySelectorAll('div');
-            imagesCartesRetourneesActuellement[0].removeChild(imagesCartesRetourneesActuellement[0].childNodes[0]);
-            imagesCartesRetourneesActuellement[0].removeChild(imagesCartesRetourneesActuellement[0].childNodes[0]);
-            imagesCartesRetourneesActuellement[1].removeChild(imagesCartesRetourneesActuellement[1].childNodes[0]);
-            imagesCartesRetourneesActuellement[1].removeChild(imagesCartesRetourneesActuellement[1].childNodes[0]);
-            nbCarteRetourneeActuellement = 0;
-        },2020);
+        imagesTrouvees();
+        retourneeImagesTrouvees();
+        //masquerImagesTrouvees();
+        nbCarteRetourneeActuellement = 0;
         score++;
     }
     setTimeout(() => {
@@ -192,4 +162,29 @@ function verification() {
             }
         }    
     },2900)}
+}
+
+
+const imagesTrouvees = () => {
+    let cartesRetournees = document.querySelectorAll('.retournee');
+    cartesRetournees[0].classList.add('trouvee');
+    cartesRetournees[1].classList.add('trouvee');
+}
+
+const retourneeImagesTrouvees = () => {
+    let cartesRetournees = document.querySelectorAll('.retournee');
+    cartesRetournees.forEach((carte) => {
+        carte.classList.remove('retournee');
+    });
+}
+const masquerImagesTrouvees = () => {
+    let cartesRetournees = document.querySelectorAll('.retournee');
+    cartesRetournees.forEach((carte) => {
+        carte.classList.remove('carte');
+    })
+    cartesRetournees[0].removeChild(childNodes[0]);
+    cartesRetournees[0].removeChild(childNodes[0]);
+    cartesRetournees[1].removeChild(childNodes[0]);
+    cartesRetournees[1].removeChild(childNodes[0]);
+    nbCarteRetourneeActuellement = 0;
 }
