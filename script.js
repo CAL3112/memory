@@ -1,4 +1,4 @@
-// Variables
+// Variables et constantes
 const resultat = document.querySelector('.resultat');
 const zone_de_jeu = document.querySelector('.zone_de_jeu');
 const votreScore = document.querySelector('.votreScore');
@@ -8,15 +8,13 @@ const spanNbCoup = document.querySelector('.nbCoup');
 const nbJoueur = document.querySelectorAll('.nbJoueur');
 const btnJouer = document.querySelector('.btn-jouer');
 const pageAccueil = document.querySelector('.page-accueil');
-var nbCarteMemo;
+var nbCarteMemo = 0;
 var nbCarteRetourneeActuellement = 0;
-var nbCoupsPourTrouver = 0;
+var nbTour = 0;
 var score = 0;
 var tpsMemorisation = 2000; // temps pour mémoriser les cartes (en ms)
 
-retournerTout(); // Function pour le débug
-
-function retournerTout() {
+const retournerTout = () => {
     let toutesLesCartes = document.querySelectorAll('.carte');
     toutesLesCartes.forEach((anyCarte) => {
         anyCarte.classList.add('retournee');
@@ -52,21 +50,21 @@ function start(nbCarteMemo, mode, theme) {
         nouvelleCarte.className = "carte hidden";
         zone_de_jeu.appendChild(nouvelleCarte);
         let nouvelleCarteDos = document.createElement('div');
-        nouvelleCarteDos.className = "carte-cachee"
+        nouvelleCarteDos.className = "face1"
         var cartes = document.querySelectorAll('.carte');
         cartes[i].appendChild(nouvelleCarteDos);
         let nouvelleCarteFace = document.createElement('div');
-        nouvelleCarteFace.className = "carte-visible";
+        nouvelleCarteFace.className = "face2";
         cartes[i].appendChild(nouvelleCarteFace);
     }
     //inserLogo();   
     inserImage(theme);
     appararition();
 
-    // Ajoute le logo au dos des cartes sur les faces cachees (.carte-cachee)
+    // Ajoute le logo au dos des cartes sur les faces cachees (.face1)
 
 function inserLogo() {
-    var cartesCachee = document.querySelectorAll('.carte-cachee');       
+    var cartesCachee = document.querySelectorAll('.face1');       
     cartesCachee.forEach((carte) => {
         let logo = document.createElement('img');
         logo.className = "logo"
@@ -76,10 +74,10 @@ function inserLogo() {
     )
 };
 
-// Ajoute les images (de manière aléatoire) sur les faces visibles (.carte-visible)
+// Ajoute les images (de manière aléatoire) sur les faces visibles (.face2)
 
 function inserImage(theme) {
-    var cartesVisible = document.querySelectorAll('.carte-visible');
+    var cartesVisible = document.querySelectorAll('.face2');
     for (let i = 0; i < cartesVisible.length; i++) {
         var image = document.createElement('img'); 
         cartesVisible[i].appendChild(image);  
@@ -119,6 +117,7 @@ cartes.forEach((carte) => {
         nbCarteRetourneeActuellement++;
         carte.classList.add('retournee');
         verification();
+        console.log("nbCarteRetourneeActuellement : "+nbCarteRetourneeActuellement);
     }
     }
 })
@@ -129,7 +128,7 @@ function verification() {
     var cartesRetournees = document.querySelectorAll('.retournee');
     if (nbCarteRetourneeActuellement < 2) { // permet d'attendre que 2 cartes soient retournées
     } else if (cartesRetournees[0].childNodes[1].childNodes[0].className != cartesRetournees[1].childNodes[1].childNodes[0].className){ // cas où les 2 cartes retournées sont différentes
-        nbCoupsPourTrouver++;
+        nbTour++;
         let cartesRetournee = document.querySelectorAll('.retournee');
         setTimeout(() => {
             cartesRetournee.forEach((carte) => {
@@ -138,54 +137,81 @@ function verification() {
             })
         }, tpsMemorisation);
     } else { // cas où les cartes retournées sont identiques
-        nbCoupsPourTrouver++;
-        imagesTrouvees();
-        retourneeImagesTrouvees();
-        //masquerImagesTrouvees();
+        nbTour++;
+        imagesIdentiques();
         nbCarteRetourneeActuellement = 0;
         score++;
+        console.log("score : "+score);
     }
     setTimeout(() => {
         var fini = score/numCarteMaxi;
         if (fini == 1) {
             zone_de_jeu.classList.add('displayNone')
             resultat.classList.remove('displayNone');
-            votreScore.innerHTML = "Vous avez mis <b>"+nbCoupsPourTrouver+"</b> tours pour tout trouver."
+            votreScore.innerHTML = "Vous avez mis <b>"+nbTour+"</b> tours pour tout trouver."
             rejouer.onclick = () => {
                 resultat.classList.add('displayNone')
                 pageAccueil.classList.remove('displayNone')
                 score = 0;
-                nbCoupsPourTrouver = 0;
+                nbTour = 0;
                 var trouvee = document.querySelectorAll('.trouvee');
                 trouvee.forEach((e) => {
                     zone_de_jeu.removeChild(e);
                 })
             }
         }    
-    },2900)}
+    },1000)}
+    finDuJeu(); // mettre un wait imageIdentique()
 }
 
+const imagesIdentiques = () => {
+    var cartesRetournees = document.querySelectorAll('.retournee');
+    setTimeout(() => {
+        retirerClassRetournee(cartesRetournees);
+        retirerClassCarte(cartesRetournees);    
+        ajoutClassTrouvee(cartesRetournees);
+        retirerChildFace1(cartesRetournees);
+    },1500);
+    nbCarteRetourneeActuellement = 0;
+}
 
-const imagesTrouvees = () => {
-    let cartesRetournees = document.querySelectorAll('.retournee');
+const ajoutClassTrouvee = (cartesRetournees) => {
     cartesRetournees[0].classList.add('trouvee');
     cartesRetournees[1].classList.add('trouvee');
 }
 
-const retourneeImagesTrouvees = () => {
-    let cartesRetournees = document.querySelectorAll('.retournee');
+const retirerClassRetournee = (cartesRetournees) => {
     cartesRetournees.forEach((carte) => {
         carte.classList.remove('retournee');
     });
 }
-const masquerImagesTrouvees = () => {
-    let cartesRetournees = document.querySelectorAll('.retournee');
+const retirerClassCarte = (cartesRetournees) => {
     cartesRetournees.forEach((carte) => {
         carte.classList.remove('carte');
     })
-    cartesRetournees[0].removeChild(childNodes[0]);
-    cartesRetournees[0].removeChild(childNodes[0]);
-    cartesRetournees[1].removeChild(childNodes[0]);
-    cartesRetournees[1].removeChild(childNodes[0]);
-    nbCarteRetourneeActuellement = 0;
+}
+const retirerChildFace1 = (cartesRetournees) => {
+    cartesRetournees.forEach((carte) => {
+        carte.removeChild(carte.firstChild);
+    })
+}
+const finDuJeu = () => {
+    setTimeout(() => {
+        var fini = score/numCarteMaxi;
+        if (fini == 1) {
+            zone_de_jeu.classList.add('displayNone')
+            resultat.classList.remove('displayNone');
+            votreScore.innerHTML = "Vous avez mis <b>"+nbTour+"</b> tours pour tout trouver."
+            rejouer.onclick = () => {
+                resultat.classList.add('displayNone')
+                pageAccueil.classList.remove('displayNone')
+                score = 0;
+                nbTour = 0;
+                var trouvee = document.querySelectorAll('.trouvee');
+                trouvee.forEach((e) => {
+                    zone_de_jeu.removeChild(e);
+                })
+            }
+        }    
+    },3000)
 }

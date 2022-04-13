@@ -52,23 +52,23 @@ h1{
     min-width: 80px;
     min-height: 80px;
 }
-.carte-cachee{
+.face1{
     cursor: pointer;
     background-color: #ffffff;
 }
-.carte-visible{
+.face2{
     background-color: #ffffff;
     transform: rotateY(180deg);
 }
-.carte-visible img {
+.face2 img {
     width: 80%;
     height: 80%;
 }
-.carte-cachee:hover{
+.face1:hover{
     transition: 300ms;
     opacity: 0.6;
 }
-.carte-cachee img {
+.face1 img {
     width: 50%;
     height: 50%;
 }
@@ -76,11 +76,15 @@ h1{
     transition: 1000ms;
     transform: rotateY(180deg);
 }
-.carte-cachee,.carte-visible{
+.face1,.face2{
     transition: 1000ms;
     position: absolute;
-    width: 100%;
-    height: 100%;
+    /* width: 100%;
+    height: 100%; */
+    width: 130px;
+    height: 130px;
+    min-width: 80px;
+    min-height: 80px;
     backface-visibility: hidden;
     border-radius: 10px;
     display: flex;
