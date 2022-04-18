@@ -8,7 +8,7 @@ body{
     background-color: #1c2541;
 }
 h1{
-    font-size: 50px;
+    font-size: 5vh;
     padding: 10px 30px;
     background-color: #eee0cb;
     border-radius: 10px;
@@ -22,7 +22,7 @@ h1{
     justify-content: center;
     padding: 20px 0;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 5vh;
 }
 .section-zone_de_jeu{
     width: 100%;
@@ -31,26 +31,23 @@ h1{
 .zone_de_jeu{
     display: grid;
     grid-template-columns: repeat(6, auto);
-    grid-gap: 30px;
+    grid-gap: 3vh;
     justify-content: center;
     perspective: 1000px;
+    flex-wrap: wrap;
 }
 .carte{
     display: flex;
     transition: 500ms;
-    width: 130px;
-    height: 130px;
-    min-width: 80px;
-    min-height: 80px;
+    width: 12vh;
+    height: 12vh;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     transform-style: preserve-3d;
 }
 .trouvee{
-    width: 130px;
-    height: 130px;
-    min-width: 80px;
-    min-height: 80px;
+    width: 12vh;
+    height: 12vh;
 }
 .carte-cachee{
     cursor: pointer;
@@ -107,31 +104,28 @@ h1{
     top: 50%;
     left: 50%;transform: translate(-50%, -50%);
     background-color: #eee0cb;
-    padding: 50px;
+    padding: 5vh;
     border-radius: 10px;
 }
 h2{
     text-align: center;
     padding: 10px;
-    font-size: 40px;
+    font-size: 3vw;
     margin-bottom: 50px;
     font-family: 'Rubik Moonrocks', cursive;
     color: #1c2541;
 }
 .p-reglage, .nbJoueur{
-    font-size: 25px;
-    width: 250px;
+    font-size: 1.5vw;
     color: #1c2541;
     font-weight: 600;
 }
 .nbJoueur-container, .choixTheme-container{
     display: flex;
     align-items: center;
-    margin: 20px 0;
-    min-width: 420px;
 }
 select{
-    font-size: 1.25em;
+    font-size: 1.25vw;
     margin: 10px;
     padding: 10px;
     background-color: #1c2541;
@@ -142,9 +136,9 @@ select{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 10px;
-    width: 45px;
-    height: 45px;
+    margin: 0 5%;
+    width: 2vw;
+    height: 2vw;
     padding: 10px 16px;
     background-color: #1c2541;
     border-radius: 5px;
@@ -186,7 +180,6 @@ select{
     top: 50%;
     left: 50%;transform: translate(-50%, -50%);
     width: 50%;
-    min-width: 540px;
     max-width: 800px;
     height: 50vh;
     background-color: #eee0cb;
