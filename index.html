@@ -17,10 +17,12 @@
         <div class="nbJoueur-container">
             <p class="p-reglage">Nombre de joueur :</p>
             <div class="flex">
-                <div id="1" class="nbJoueur selected">1</div>
-                <div id="2" class="nbJoueur">2</div>
-                <div id="3" class="nbJoueur">3</div>
-                <div id="4" class="nbJoueur">4</div>
+                <select name="nbjoueur" id="choixNbJoueur">
+                    <option value="1">1 joueur</option>
+                    <option value="2">2 joueurs (local)</option>
+                    <option value="3">3 joueurs (local)</option>
+                    <option value="4">4 joueurs (local)</option>
+                </select>
             </div>
           
         </div>
@@ -37,6 +39,28 @@
         <div class="btn-jouer">JOUER</div>
 
     </div>
+
+    <div class="pseudo joueur1 displayNone">
+        <p>Joueur n°1 choisit ton pseudo :</p>
+        <input type="text" id="pseudoJ1">
+        <button id="validerJ1">Valider</button>
+    </div>
+    <div class="pseudo joueur2 displayNone">
+        <p>Joueur n°2 choisit ton pseudo :</p>
+        <input type="text" id="pseudoJ2">
+        <button id="validerJ2">Valider</button>
+    </div>
+    <div class="pseudo joueur3 displayNone">
+        <p>Joueur n°3 choisit ton pseudo :</p>
+        <input type="text" id="pseudoJ3">
+        <button id="validerJ3">Valider</button>
+    </div>
+    <div class="pseudo joueur4 displayNone">
+        <p>Joueur n°4 choisit ton pseudo :</p>
+        <input type="text" id="pseudoJ4">
+        <button id="validerJ4">Valider</button>
+    </div>
+
     <div class="resultat displayNone">
         <h2>Résultat</h2>
         <div class="votreScore"></div>

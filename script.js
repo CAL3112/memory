@@ -3,16 +3,35 @@ const resultat = document.querySelector('.resultat');
 const zone_de_jeu = document.querySelector('.zone_de_jeu');
 const votreScore = document.querySelector('.votreScore');
 const rejouer = document.querySelector('.rejouer');
-const spanScore = document.querySelector('.score');
-const spanNbCoup = document.querySelector('.nbCoup');
-const nbJoueur = document.querySelectorAll('.nbJoueur');
 const btnJouer = document.querySelector('.btn-jouer');
 const pageAccueil = document.querySelector('.page-accueil');
+const btnValiderJ1 = document.querySelector('#validerJ1');
+const btnValiderJ2 = document.querySelector('#validerJ2');
+const btnValiderJ3 = document.querySelector('#validerJ3');
+const btnValiderJ4 = document.querySelector('#validerJ4');
+const inputTextJ1 = document.querySelector('#pseudoJ1');
+const inputTextJ2 = document.querySelector('#pseudoJ2');
+const inputTextJ3 = document.querySelector('#pseudoJ3');
+const inputTextJ4 = document.querySelector('#pseudoJ4');
+const choixPseudoJ1 = document.querySelector('.joueur1');
+const choixPseudoJ2 = document.querySelector('.joueur2');
+const choixPseudoJ3 = document.querySelector('.joueur3');
+const choixPseudoJ4 = document.querySelector('.joueur4');
+
 var nbCarteMemo = 0;
 var nbCarteRetourneeActuellement = 0;
 var nbTour = 0;
 var score = 0;
 var tpsMemorisation = 2000; // temps pour mémoriser les cartes (en ms)
+var pseudoJoueur1 = "";
+var pseudoJoueur2 = "";
+var pseudoJoueur3 = "";
+var pseudoJoueur4 = "";
+var NbJoueurSelected = document.querySelector('#choixNbJoueur');
+// var modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
+var choixTheme = document.querySelector('#choixTheme');
+// var theme = choixTheme.options[choixTheme.selectedIndex].value;
+
 
 const retournerTout = () => {
     let toutesLesCartes = document.querySelectorAll('.carte');
@@ -20,30 +39,57 @@ const retournerTout = () => {
         anyCarte.classList.add('retournee');
     })
 }
-nbJoueur.forEach((e) => {
- e.onclick = () => {
-    console.log(e);
-    e.classList.add('selected');
-    for (let i = 0; i < nbJoueur.length; i++) {
-        if (nbJoueur[i] !== e) {
-            nbJoueur[i].classList.remove('selected')
-        }
-    } 
- }
-})
+
 btnJouer.onclick = () => {
-    zone_de_jeu.classList.remove('displayNone')
-    var NbJoueurSelected = document.querySelector('.selected');
-    var modeDeJeu = NbJoueurSelected.id;
-    var choixTheme = document.querySelector('#choixTheme');
+    var modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
     var theme = choixTheme.options[choixTheme.selectedIndex].value;
-    if(theme == "couleurs") nbCarteMemo = 4;
+    zone_de_jeu.classList.remove('displayNone')
+    if(theme == "couleurs") nbCarteMemo = 24;
     if(theme == "zodiaque") nbCarteMemo = 24;
     pageAccueil.classList.add('displayNone');
-    start(nbCarteMemo, modeDeJeu, theme);
-    
+    choixPseudoJ1.classList.remove('displayNone');
+
+    btnValiderJ1.onclick = () => {
+        console.log(inputTextJ1.value);
+        pseudoJoueur1 = inputTextJ1.value;
+        choixPseudoJ1.classList.add('displayNone');
+        if(modeDeJeu > 1) {
+            choixPseudoJ2.classList.remove('displayNone');
+        } else {
+            start(nbCarteMemo, modeDeJeu, theme);
+        }
+    }
+    btnValiderJ2.onclick = () => {
+        console.log(inputTextJ2.value);
+        pseudoJoueur2 = inputTextJ2.value;
+        choixPseudoJ2.classList.add('displayNone');
+        if(modeDeJeu > 2) {
+            choixPseudoJ3.classList.remove('displayNone');
+        } else {
+            start(nbCarteMemo, modeDeJeu, theme);
+        }
+    }
+    btnValiderJ3.onclick = () => {
+        console.log(inputTextJ3.value);
+        pseudoJoueur3 = inputTextJ3.value;
+        choixPseudoJ3.classList.add('displayNone');
+        if(modeDeJeu > 3) {
+            choixPseudoJ4.classList.remove('displayNone');
+        } else {
+            start(nbCarteMemo, modeDeJeu, theme);
+        }
+    }
+    btnValiderJ4.onclick = () => {
+        console.log(inputTextJ4.value);
+        pseudoJoueur4 = inputTextJ4.value;
+        choixPseudoJ4.classList.add('displayNone');
+        start(nbCarteMemo, modeDeJeu, theme);
+    }
 }
-function start(nbCarteMemo, mode, theme) {
+
+
+
+function start(nbCarteMemo, modeDeJeu, theme) {
     var numCarteMaxi = nbCarteMemo/2;
     for (let i = 0; i < nbCarteMemo; i++) {
         let nouvelleCarte = document.createElement('div');
