@@ -187,25 +187,13 @@ function verification() {
         score++;
         console.log("score : "+score);
     }
-    setTimeout(() => {
-        var fini = score/numCarteMaxi;
-        if (fini == 1) {
-            zone_de_jeu.classList.add('displayNone')
-            resultat.classList.remove('displayNone');
-            votreScore.innerHTML = "Vous avez mis <b>"+nbTour+"</b> tours pour tout trouver."
-            rejouer.onclick = () => {
-                resultat.classList.add('displayNone')
-                pageAccueil.classList.remove('displayNone')
-                score = 0;
-                nbTour = 0;
-                var trouvee = document.querySelectorAll('.trouvee');
-                trouvee.forEach((e) => {
-                    zone_de_jeu.removeChild(e);
-                })
-            }
-        }    
-    },1000)}
-    finDuJeu(); // mettre un wait imageIdentique()
+    var fini = score/numCarteMaxi;
+    console.log("fini : "+fini);
+    if (fini == 1) {
+        finDuJeu();
+    }
+    }
+    
 }
 
 const imagesIdentiques = () => {
@@ -241,11 +229,9 @@ const retirerChildFace1 = (cartesRetournees) => {
 }
 const finDuJeu = () => {
     setTimeout(() => {
-        var fini = score/numCarteMaxi;
-        if (fini == 1) {
             zone_de_jeu.classList.add('displayNone')
             resultat.classList.remove('displayNone');
-            votreScore.innerHTML = "Vous avez mis <b>"+nbTour+"</b> tours pour tout trouver."
+            votreScore.innerHTML = pseudoJoueur1+" tu as mis <b>"+nbTour+"</b> tours pour tout trouver."
             rejouer.onclick = () => {
                 resultat.classList.add('displayNone')
                 pageAccueil.classList.remove('displayNone')
@@ -256,6 +242,5 @@ const finDuJeu = () => {
                     zone_de_jeu.removeChild(e);
                 })
             }
-        }    
-    },3000)
+    },2000)
 }
