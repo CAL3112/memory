@@ -28,9 +28,7 @@ var pseudoJoueur2 = "";
 var pseudoJoueur3 = "";
 var pseudoJoueur4 = "";
 var NbJoueurSelected = document.querySelector('#choixNbJoueur');
-// var modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
 var choixTheme = document.querySelector('#choixTheme');
-// var theme = choixTheme.options[choixTheme.selectedIndex].value;
 
 
 const retournerTout = () => {
