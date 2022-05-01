@@ -17,16 +17,17 @@ const choixPseudoJ1 = document.querySelector('.joueur1');
 const choixPseudoJ2 = document.querySelector('.joueur2');
 const choixPseudoJ3 = document.querySelector('.joueur3');
 const choixPseudoJ4 = document.querySelector('.joueur4');
+const nomJoueur = document.querySelector('.nomJoueur');
 
 var nbCarteMemo = 0;
 var nbCarteRetourneeActuellement = 0;
 var nbTour = 0;
 var score = 0;
 var tpsMemorisation = 2000; // temps pour mémoriser les cartes (en ms)
-var pseudoJoueur1 = "";
-var pseudoJoueur2 = "";
-var pseudoJoueur3 = "";
-var pseudoJoueur4 = "";
+var pseudos = [];
+var couleursJoueurs = ['blue', 'red', 'green', 'orange']
+var scores = [0, 0, 0, 0];
+var joueurActuel = "";
 var NbJoueurSelected = document.querySelector('#choixNbJoueur');
 var choixTheme = document.querySelector('#choixTheme');
 
@@ -48,8 +49,8 @@ btnJouer.onclick = () => {
     choixPseudoJ1.classList.remove('displayNone');
 
     btnValiderJ1.onclick = () => {
-        console.log(inputTextJ1.value);
         pseudoJoueur1 = inputTextJ1.value;
+        pseudos.push(inputTextJ1.value)
         choixPseudoJ1.classList.add('displayNone');
         if(modeDeJeu > 1) {
             choixPseudoJ2.classList.remove('displayNone');
@@ -58,8 +59,8 @@ btnJouer.onclick = () => {
         }
     }
     btnValiderJ2.onclick = () => {
-        console.log(inputTextJ2.value);
         pseudoJoueur2 = inputTextJ2.value;
+        pseudos.push(inputTextJ2.value)
         choixPseudoJ2.classList.add('displayNone');
         if(modeDeJeu > 2) {
             choixPseudoJ3.classList.remove('displayNone');
@@ -68,8 +69,8 @@ btnJouer.onclick = () => {
         }
     }
     btnValiderJ3.onclick = () => {
-        console.log(inputTextJ3.value);
         pseudoJoueur3 = inputTextJ3.value;
+        pseudos.push(inputTextJ3.value)
         choixPseudoJ3.classList.add('displayNone');
         if(modeDeJeu > 3) {
             choixPseudoJ4.classList.remove('displayNone');
@@ -78,8 +79,8 @@ btnJouer.onclick = () => {
         }
     }
     btnValiderJ4.onclick = () => {
-        console.log(inputTextJ4.value);
         pseudoJoueur4 = inputTextJ4.value;
+        pseudos.push(inputTextJ4.value)
         choixPseudoJ4.classList.add('displayNone');
         start(nbCarteMemo, modeDeJeu, theme);
     }
@@ -88,6 +89,11 @@ btnJouer.onclick = () => {
 
 
 function start(nbCarteMemo, modeDeJeu, theme) {
+    if(modeDeJeu !== 1){
+        document.body.style.backgroundColor = "blue";
+        nomJoueur.innerHTML = pseudos[0]+" à toi de jouer";
+        joueurActuel = pseudoJoueur1;
+    }
     var numCarteMaxi = nbCarteMemo/2;
     for (let i = 0; i < nbCarteMemo; i++) {
         let nouvelleCarte = document.createElement('div');
@@ -178,6 +184,10 @@ function verification() {
             cartesRetournee.forEach((carte) => {
                 carte.classList.remove('retournee');
                 nbCarteRetourneeActuellement = 0;
+                if(modeDeJeu < 1){
+                    nomJoueur.innerHTML = pseudoJoueur2+" à toi de jouer";
+                    document.body.style.backgroundColor = "red";
+                }
             })
         }, tpsMemorisation);
     } else { // cas où les cartes retournées sont identiques
