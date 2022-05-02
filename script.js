@@ -43,7 +43,7 @@ btnJouer.onclick = () => {
     var modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
     var theme = choixTheme.options[choixTheme.selectedIndex].value;
     zone_de_jeu.classList.remove('displayNone');
-    if(theme == "couleurs") nbCarteMemo = 2;
+    if(theme == "couleurs") nbCarteMemo = 24;
     if(theme == "zodiaque") nbCarteMemo = 24;
     pageAccueil.classList.add('displayNone');
     choixPseudoJ1.classList.remove('displayNone');
@@ -101,7 +101,6 @@ btnJouer.onclick = () => {
 
 
 function start(nbCarteMemo, modeDeJeu, theme) {
-    console.log(modeDeJeu);
     if(modeDeJeu > 1){
         document.body.style.backgroundColor = couleursJoueurs[numeroJoueurActuel];
         nomJoueur.classList.remove('displayNone');
@@ -120,7 +119,7 @@ function start(nbCarteMemo, modeDeJeu, theme) {
         nouvelleCarteFace.className = "face2";
         cartes[i].appendChild(nouvelleCarteFace);
     }
-    //inserLogo();   
+    inserLogo();   
     inserImage(theme);
     appararition();
 
@@ -131,7 +130,7 @@ function inserLogo() {
     cartesCachee.forEach((carte) => {
         let logo = document.createElement('img');
         logo.className = "logo"
-        logo.src = "";
+        logo.src = "assets/logoLM.svg";
         carte.appendChild(logo);
         }
     )
@@ -296,3 +295,5 @@ const finDuJeu = (modeDeJeu) => {
             }
     },2000)
 }
+
+

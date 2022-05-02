@@ -11,13 +11,14 @@ body{
 }
 h1{
     font-size: 35px;
-    padding: 10px 30px;
+    padding: 8px 20px;
     background-color: #eee0cb;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     font-family: 'Syne Mono', monospace;
     cursor: default;
     color: #1c2541;
+    margin: 10px 0;
 }
 h3{
     margin: 10px 0;
@@ -27,9 +28,7 @@ h3{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 0;
     text-align: center;
-    margin-bottom: 5vh;
 }
 .section-zone_de_jeu{
     width: 100%;
@@ -38,7 +37,7 @@ h3{
 .zone_de_jeu{
     display: grid;
     grid-template-columns: repeat(6, auto);
-    grid-gap: 3vh;
+    grid-gap: 10px;
     justify-content: center;
     perspective: 1000px;
     flex-wrap: wrap;
@@ -46,15 +45,20 @@ h3{
 .carte{
     display: flex;
     transition: 500ms;
-    width: 12vh;
-    height: 12vh;
+    width: 12vw;
+    height: 12vw;
+    max-width: 12vh;
+    max-height: 12vh;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     transform-style: preserve-3d;
 }
 .trouvee{
-    width: 12vh;
-    height: 12vh;
+    width: 12vw;
+    height: 12vw;
+    max-width: 12vh;
+    max-height: 12vh;
+
 }
 .face1{
     cursor: pointer;
@@ -82,8 +86,10 @@ h3{
 }
 .face1,.face2{
     transition: 1000ms;
-    width: 12vh;
-    height: 12vh;
+    width: 12vw;
+    height: 12vw;
+    max-width: 12vh;
+    max-height: 12vh;
     position: absolute;
     backface-visibility: hidden;
     border-radius: 10px;
@@ -204,8 +210,6 @@ select{
     opacity: 0;
 }
 .pseudo{
-    width: 450px;
-    height: 200px;
     position: absolute;
     top: 50%;
     left: 50%;transform: translate(-50%, -50%);
@@ -221,6 +225,7 @@ select{
 .pseudo p{
     font-size: 20px;
     font-weight: 600;
+    display: block;
 }
 .pseudo input{
     font-size: 20px;
@@ -259,4 +264,15 @@ tr td:nth-child(2){
 }
 thead{
     text-align: center;
+}
+input{
+    margin: 10px 0;
+}
+.logoAccueil{
+    transition: 0.3s;
+    max-width: 80px;
+    width: 15vw;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
 }
