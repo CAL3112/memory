@@ -49,7 +49,6 @@ btnJouer.onclick = () => {
     choixPseudoJ1.classList.remove('displayNone');
 
     btnValiderJ1.onclick = () => {
-        pseudoJoueur1 = inputTextJ1.value;
         pseudos.push(inputTextJ1.value)
         choixPseudoJ1.classList.add('displayNone');
         if(modeDeJeu > 1) {
@@ -59,7 +58,6 @@ btnJouer.onclick = () => {
         }
     }
     btnValiderJ2.onclick = () => {
-        pseudoJoueur2 = inputTextJ2.value;
         pseudos.push(inputTextJ2.value)
         choixPseudoJ2.classList.add('displayNone');
         if(modeDeJeu > 2) {
@@ -69,7 +67,6 @@ btnJouer.onclick = () => {
         }
     }
     btnValiderJ3.onclick = () => {
-        pseudoJoueur3 = inputTextJ3.value;
         pseudos.push(inputTextJ3.value)
         choixPseudoJ3.classList.add('displayNone');
         if(modeDeJeu > 3) {
@@ -79,7 +76,6 @@ btnJouer.onclick = () => {
         }
     }
     btnValiderJ4.onclick = () => {
-        pseudoJoueur4 = inputTextJ4.value;
         pseudos.push(inputTextJ4.value)
         choixPseudoJ4.classList.add('displayNone');
         start(nbCarteMemo, modeDeJeu, theme);
@@ -89,10 +85,10 @@ btnJouer.onclick = () => {
 
 
 function start(nbCarteMemo, modeDeJeu, theme) {
-    if(modeDeJeu !== 1){
+    if(modeDeJeu != 1){
         document.body.style.backgroundColor = "blue";
         nomJoueur.innerHTML = pseudos[0]+" à toi de jouer";
-        joueurActuel = pseudoJoueur1;
+        joueurActuel = pseudos[0];
     }
     var numCarteMaxi = nbCarteMemo/2;
     for (let i = 0; i < nbCarteMemo; i++) {
