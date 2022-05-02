@@ -15,9 +15,12 @@ h1{
     background-color: #eee0cb;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    font-family: 'Rubik Moonrocks', cursive;
+    font-family: 'Syne Mono', monospace;
     cursor: default;
     color: #1c2541;
+}
+h3{
+    margin: 10px 0;
 }
 .section-header{
     display: flex;
@@ -102,31 +105,31 @@ h1{
     left: 2%;
 }
 .page-accueil{
-    width: 600px;
-    height: 400px;
+    width: auto;
     position: absolute;
     top: 50%;
     left: 50%;transform: translate(-50%, -50%);
     background-color: #eee0cb;
-    padding: 5vh;
     border-radius: 10px;
+    padding: 15px;
 }
 h2{
     text-align: center;
     padding: 10px;
     font-size: 30px;
     margin-bottom: 50px;
-    font-family: 'Rubik Moonrocks', cursive;
     color: #1c2541;
 }
 .p-reglage, .nbJoueur{
     font-size: 20px;
     color: #1c2541;
     font-weight: 600;
+    flex-shrink: none;
 }
-.nbJoueur-container, .choixTheme-container{
+.reglage-container{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 select{
     font-size: 20px;
@@ -155,18 +158,13 @@ select{
 .btn-jouer{
     color: #1c2541;
     cursor: pointer;
-    font-family: 'Rubik Moonrocks', cursive;
     font-weight: 600;
     margin: auto;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 5%;
     display: flex;
     justify-content: center;
     width: 150px;
     font-size: 25px;
-    padding: 15px 25px;
+    padding: 10px 20px;
     background-color: #689689;
     border-radius: 10px;
     border: 2px solid transparent;
@@ -181,11 +179,9 @@ select{
 
 .resultat{
     position: absolute;
+    padding: 15px;
     top: 50%;
     left: 50%;transform: translate(-50%, -50%);
-    width: 50%;
-    max-width: 800px;
-    height: 50vh;
     background-color: #eee0cb;
     border-radius: 15px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -199,9 +195,9 @@ select{
     padding: 0 20px;
 }
 .p-rejouer{
-    bottom: 120px;
     text-align: center;
-    margin-bottom: 120px;
+    margin: 10px 0;
+    font-size:15px;
 }
 
 .hidden{
@@ -236,7 +232,6 @@ select{
 button{
     color: #1c2541;
     cursor: pointer;
-    font-family: 'Rubik Moonrocks', cursive;
     font-weight: 600;
     display: flex;
     justify-content: center;
@@ -253,4 +248,15 @@ button:hover{
 }
 .displayNone{
     display: none;
+}
+table{
+    border: 2px solid #1c2541;
+    border-radius: 5px;
+    margin: auto;
+}
+tr td:nth-child(2){
+    padding: 0 15px;
+}
+thead{
+    text-align: center;
 }

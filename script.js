@@ -32,62 +32,79 @@ var NbJoueurSelected = document.querySelector('#choixNbJoueur');
 var choixTheme = document.querySelector('#choixTheme');
 
 
-const retournerTout = () => {
-    let toutesLesCartes = document.querySelectorAll('.carte');
-    toutesLesCartes.forEach((anyCarte) => {
-        anyCarte.classList.add('retournee');
-    })
-}
+// const retournerTout = () => {
+//     let toutesLesCartes = document.querySelectorAll('.carte');
+//     toutesLesCartes.forEach((anyCarte) => {
+//         anyCarte.classList.add('retournee');
+//     })
+// }
 
 btnJouer.onclick = () => {
     var modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
     var theme = choixTheme.options[choixTheme.selectedIndex].value;
-    zone_de_jeu.classList.remove('displayNone')
-    if(theme == "couleurs") nbCarteMemo = 24;
+    zone_de_jeu.classList.remove('displayNone');
+    if(theme == "couleurs") nbCarteMemo = 2;
     if(theme == "zodiaque") nbCarteMemo = 24;
     pageAccueil.classList.add('displayNone');
     choixPseudoJ1.classList.remove('displayNone');
 
     btnValiderJ1.onclick = () => {
-        pseudos.push(inputTextJ1.value)
-        choixPseudoJ1.classList.add('displayNone');
-        if(modeDeJeu > 1) {
-            choixPseudoJ2.classList.remove('displayNone');
+        if(inputTextJ1.value.length < 3 || inputTextJ1.value.length > 20) {
+            alert('Veuillez renseigner un pseudo compris entre 3 et 20 caractères')
         } else {
-            start(nbCarteMemo, modeDeJeu, theme);
+            pseudos.push(inputTextJ1.value)
+            choixPseudoJ1.classList.add('displayNone');
+            if(modeDeJeu > 1) {
+                choixPseudoJ2.classList.remove('displayNone');
+            } else {
+                start(nbCarteMemo, modeDeJeu, theme);
+            }
         }
     }
     btnValiderJ2.onclick = () => {
-        pseudos.push(inputTextJ2.value)
-        choixPseudoJ2.classList.add('displayNone');
-        if(modeDeJeu > 2) {
-            choixPseudoJ3.classList.remove('displayNone');
+        if(inputTextJ2.value.length < 3 || inputTextJ2.value.length > 20) {
+            alert('Veuillez renseigner un pseudo compris entre 3 et 20 caractères')
         } else {
-            start(nbCarteMemo, modeDeJeu, theme);
+            pseudos.push(inputTextJ2.value)
+            choixPseudoJ2.classList.add('displayNone');
+            if(modeDeJeu > 2) {
+                choixPseudoJ3.classList.remove('displayNone');
+            } else {
+                start(nbCarteMemo, modeDeJeu, theme);
+            }
         }
     }
     btnValiderJ3.onclick = () => {
-        pseudos.push(inputTextJ3.value)
-        choixPseudoJ3.classList.add('displayNone');
-        if(modeDeJeu > 3) {
-            choixPseudoJ4.classList.remove('displayNone');
+        if(inputTextJ3.value.length < 3 || inputTextJ3.value.length > 20) {
+            alert('Veuillez renseigner un pseudo compris entre 3 et 20 caractères')
         } else {
-            start(nbCarteMemo, modeDeJeu, theme);
+            pseudos.push(inputTextJ3.value)
+            choixPseudoJ3.classList.add('displayNone');
+            if(modeDeJeu > 3) {
+                choixPseudoJ4.classList.remove('displayNone');
+            } else {
+                start(nbCarteMemo, modeDeJeu, theme);
+            }
         }
     }
     btnValiderJ4.onclick = () => {
-        pseudos.push(inputTextJ4.value)
-        choixPseudoJ4.classList.add('displayNone');
-        start(nbCarteMemo, modeDeJeu, theme);
+        if(inputTextJ4.value.length < 3 || inputTextJ4.value.length > 20) {
+            alert('Veuillez renseigner un pseudo compris entre 3 et 20 caractères')
+        } else {
+            pseudos.push(inputTextJ4.value)
+            choixPseudoJ4.classList.add('displayNone');
+            start(nbCarteMemo, modeDeJeu, theme);
+        }
     }
 }
 
 
 
 function start(nbCarteMemo, modeDeJeu, theme) {
+    console.log(modeDeJeu);
     if(modeDeJeu > 1){
-        numeroJoueurActuel = 0;
         document.body.style.backgroundColor = couleursJoueurs[numeroJoueurActuel];
+        nomJoueur.classList.remove('displayNone');
         nomJoueur.innerHTML = pseudos[numeroJoueurActuel]+" à toi de jouer";
     }
     var numCarteMaxi = nbCarteMemo/2;
@@ -114,7 +131,7 @@ function inserLogo() {
     cartesCachee.forEach((carte) => {
         let logo = document.createElement('img');
         logo.className = "logo"
-        logo.src = "assets/logo.svg";
+        logo.src = "";
         carte.appendChild(logo);
         }
     )
@@ -163,7 +180,7 @@ cartes.forEach((carte) => {
         nbCarteRetourneeActuellement++;
         carte.classList.add('retournee');
         verification();
-        console.log("nbCarteRetourneeActuellement : "+nbCarteRetourneeActuellement);
+        //console.log("nbCarteRetourneeActuellement : "+nbCarteRetourneeActuellement);
     }
     }
 })
@@ -176,73 +193,102 @@ function verification() {
     } else if (cartesRetournees[0].childNodes[1].childNodes[0].className != cartesRetournees[1].childNodes[1].childNodes[0].className){ // cas où les 2 cartes retournées sont différentes
         nbTour++;
         let cartesRetournee = document.querySelectorAll('.retournee');
+        if(numeroJoueurActuel < pseudos.length-1) { // on vérif que ce n'ai pas le dernier joueur qui est en train de jouer.
+            numeroJoueurActuel = numeroJoueurActuel+1; //on passe au joueur suivant.
+            //console.log("numeroJoueurActuel "+numeroJoueurActuel);
+        } else {
+            numeroJoueurActuel = 0;
+        }
         setTimeout(() => {
             cartesRetournee.forEach((carte) => {
                 carte.classList.remove('retournee');
                 nbCarteRetourneeActuellement = 0;
-                if(modeDeJeu < 1){
-                    nomJoueur.innerHTML = pseudoJoueur2+" à toi de jouer";
-                    document.body.style.backgroundColor = "red";
+                if(modeDeJeu > 1){
+                    nomJoueur.innerHTML = pseudos[numeroJoueurActuel]+" à toi de jouer";
+                    document.body.style.backgroundColor = couleursJoueurs[numeroJoueurActuel];
                 }
             })
         }, tpsMemorisation);
     } else { // cas où les cartes retournées sont identiques
-        nbTour++;
         imagesIdentiques();
-        nbCarteRetourneeActuellement = 0;
-        score++;
-        console.log("score : "+score);
     }
     var fini = score/numCarteMaxi;
-    console.log("fini : "+fini);
     if (fini == 1) {
-        finDuJeu();
+        finDuJeu(modeDeJeu);
     }
     }
     
 }
 
+//fonction activée quand 2 cartes retournées sont identiques
 const imagesIdentiques = () => {
+    nbTour++;
+    score++;
+    scores[numeroJoueurActuel]++
+    
     var cartesRetournees = document.querySelectorAll('.retournee');
     setTimeout(() => {
         retirerClassRetournee(cartesRetournees);
         retirerClassCarte(cartesRetournees);    
         ajoutClassTrouvee(cartesRetournees);
         retirerChildFace1(cartesRetournees);
+        //console.log("scores[numeroJoueurActuel] "+scores[numeroJoueurActuel]);
     },1500);
     nbCarteRetourneeActuellement = 0;
 }
-
+// ajoute la classe .trouvee aux cartes retournées identiques
 const ajoutClassTrouvee = (cartesRetournees) => {
     cartesRetournees[0].classList.add('trouvee');
     cartesRetournees[1].classList.add('trouvee');
 }
-
+// retire la classe .retournee aux cartes retournées identiques
 const retirerClassRetournee = (cartesRetournees) => {
     cartesRetournees.forEach((carte) => {
         carte.classList.remove('retournee');
     });
 }
+// retire la classe .carte aux cartes retournées identiques
 const retirerClassCarte = (cartesRetournees) => {
     cartesRetournees.forEach((carte) => {
         carte.classList.remove('carte');
     })
 }
+// retire l'enfant .face1 des cartes identiques pour empêcher de pouvoir cliquer dessus à nouveau
 const retirerChildFace1 = (cartesRetournees) => {
     cartesRetournees.forEach((carte) => {
         carte.removeChild(carte.firstChild);
     })
 }
-const finDuJeu = () => {
+// fonction qui affiche les score en fin de partie et qui réinitialise le jeu lorsqu'on clique sur le bouton rejouer
+const finDuJeu = (modeDeJeu) => {
     setTimeout(() => {
-            zone_de_jeu.classList.add('displayNone')
+            document.body.style.backgroundColor = "#1c2541";
+            nomJoueur.classList.add('displayNone');
+            zone_de_jeu.classList.add('displayNone');
             resultat.classList.remove('displayNone');
-            votreScore.innerHTML = pseudoJoueur1+" tu as mis <b>"+nbTour+"</b> tours pour tout trouver."
+            if(modeDeJeu <= 1) { // cas du mode 1 joueur
+                votreScore.innerHTML = pseudos[0]+" tu as mis <b>"+nbTour+"</b> tours pour tout trouver.";
+            } else {
+                if(pseudos.length == 4){
+                    let x = scores.indexOf(Math.max(...scores))
+                    votreScore.innerHTML = "<p>"+pseudos[x]+", bravo tu as gagné</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr><tr><td>"+pseudos[2]+"</td><td>"+scores[2]+"</td></tr><tr><td>"+pseudos[3]+"</td><td>"+scores[3]+"</td></tr></tbody></table>"
+                } else if(pseudos.length == 3){
+                    let x = scores.indexOf(Math.max(...scores))
+                    votreScore.innerHTML = "<p>"+pseudos[x]+", bravo tu as gagné</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr><tr><td>"+pseudos[2]+"</td><td>"+scores[2]+"</td></tr></tbody></table>"
+                } if(pseudos.length == 2){
+                    let x = scores.indexOf(Math.max(...scores))
+                    votreScore.innerHTML = "<p>"+pseudos[x]+", bravo tu as gagné</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr></tbody></table>"
+                }
+            }
             rejouer.onclick = () => {
                 resultat.classList.add('displayNone')
                 pageAccueil.classList.remove('displayNone')
                 score = 0;
                 nbTour = 0;
+                pseudos = [];
+                scores = [0, 0, 0, 0];
+                var modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
+                var theme = choixTheme.options[choixTheme.selectedIndex].value;
                 var trouvee = document.querySelectorAll('.trouvee');
                 trouvee.forEach((e) => {
                     zone_de_jeu.removeChild(e);

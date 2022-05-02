@@ -7,14 +7,15 @@
     <title>Memory</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="page-accueil">
         <h2>Réglages</h2>
-        <div class="nbJoueur-container">
+        <div class="reglage-container">
             <p class="p-reglage">Nombre de joueur :</p>
             <div class="flex">
                 <select name="nbjoueur" id="choixNbJoueur">
@@ -26,12 +27,12 @@
             </div>
           
         </div>
-        <div class="choixTheme-container">
+        <div class="reglage-container">
             <p class="p-reglage">Thème :</p>
             <div class="flex">
                 <select name="theme" id="choixTheme">
-                    <option value="couleurs">Les Couleurs (12 paires)</option>
-                    <option value="zodiaque">Signes du Zodiaque (12 paires)</option>
+                    <option value="couleurs">Les Couleurs</option>
+                    <option value="zodiaque">Signes du Zodiaque</option>
                 </select>
             </div>
         </div>
@@ -62,7 +63,7 @@
     </div>
 
     <div class="resultat displayNone">
-        <h2>Résultat</h2>
+        <h2>Résultats</h2>
         <div class="votreScore"></div>
         <p class="p-rejouer">Veux-tu rejouer ?</p>
         <div class="btn-jouer rejouer">REJOUER</div>
