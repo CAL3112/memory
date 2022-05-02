@@ -27,7 +27,7 @@ var tpsMemorisation = 2000; // temps pour mémoriser les cartes (en ms)
 var pseudos = [];
 var couleursJoueurs = ['blue', 'red', 'green', 'orange']
 var scores = [0, 0, 0, 0];
-var joueurActuel = "";
+var numeroJoueurActuel = 0;
 var NbJoueurSelected = document.querySelector('#choixNbJoueur');
 var choixTheme = document.querySelector('#choixTheme');
 
@@ -85,10 +85,10 @@ btnJouer.onclick = () => {
 
 
 function start(nbCarteMemo, modeDeJeu, theme) {
-    if(modeDeJeu != 1){
-        document.body.style.backgroundColor = "blue";
-        nomJoueur.innerHTML = pseudos[0]+" à toi de jouer";
-        joueurActuel = pseudos[0];
+    if(modeDeJeu > 1){
+        numeroJoueurActuel = 0;
+        document.body.style.backgroundColor = couleursJoueurs[numeroJoueurActuel];
+        nomJoueur.innerHTML = pseudos[numeroJoueurActuel]+" à toi de jouer";
     }
     var numCarteMaxi = nbCarteMemo/2;
     for (let i = 0; i < nbCarteMemo; i++) {
