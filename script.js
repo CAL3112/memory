@@ -31,19 +31,11 @@ var numeroJoueurActuel = 0;
 var NbJoueurSelected = document.querySelector('#choixNbJoueur');
 var choixTheme = document.querySelector('#choixTheme');
 
-
-// const retournerTout = () => {
-//     let toutesLesCartes = document.querySelectorAll('.carte');
-//     toutesLesCartes.forEach((anyCarte) => {
-//         anyCarte.classList.add('retournee');
-//     })
-// }
-
 btnJouer.onclick = () => {
     var modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
     var theme = choixTheme.options[choixTheme.selectedIndex].value;
     zone_de_jeu.classList.remove('displayNone');
-    if(theme == "couleurs") nbCarteMemo = 24;
+    if(theme == "couleurs") nbCarteMemo = 2;
     if(theme == "zodiaque") nbCarteMemo = 24;
     pageAccueil.classList.add('displayNone');
     choixPseudoJ1.classList.remove('displayNone');
@@ -97,8 +89,6 @@ btnJouer.onclick = () => {
         }
     }
 }
-
-
 
 function start(nbCarteMemo, modeDeJeu, theme) {
     if(modeDeJeu > 1){
@@ -296,4 +286,44 @@ const finDuJeu = (modeDeJeu) => {
     },2000)
 }
 
+var tab1 = [5,5,4,3];
+var tab2 = [5,5,5,5];
+var tab3 = [5,5,4,3];
+var tab4 = [5,5,4,3];
 
+const verifDesScores = () => { ///////////////////////////////////////  à finir
+    scores = [5,5,5,5]
+    var verifScore = scores;
+    console.log("verifScore "+verifScore);
+    var egalite = 1;
+
+    var posScoreMax1 = verifScore.indexOf(Math.max(...verifScore))
+    verifScore[posScoreMax1] = 0;
+    console.log("verifScore au 1er splice : "+verifScore);
+    console.log("posScoreMax1 : "+posScoreMax1);
+    var posScoreMax2 = verifScore.indexOf(Math.max(...verifScore))
+    verifScore[posScoreMax2] = 0;
+    console.log("verifScore au 2ieme splice : "+verifScore);
+    console.log("posScoreMax2 : "+posScoreMax2);
+    if(scores[posScoreMax1] == scores[posScoreMax2]) {
+        console.log("premier if 1 == 2 ?");
+        egalite++;
+        var posScoreMax3 = verifScore.indexOf(Math.max(...verifScore))
+        verifScore[posScoreMax3] = 0;
+        console.log("verifScore au 3ieme splice : "+verifScore);
+        console.log("posScoreMax3 : "+posScoreMax3);
+    }
+    if(scores[posScoreMax2] == scores[posScoreMax3]) {
+        console.log("deuxieme if 2 == 3 ?");
+        verifScore[posScoreMax3] = 0;
+        egalite++;
+        var posScoreMax4 = verifScore.indexOf(Math.max(...verifScore))
+        console.log("verifScore au 4ieme splice : "+verifScore);
+        console.log("posScoreMax4 : "+posScoreMax4);
+    }
+    if(scores[posScoreMax3] == scores[posScoreMax4]) egalite++;
+
+    console.log("egalite : "+egalite);
+}
+
+verifDesScores();
