@@ -161,24 +161,6 @@ select{
 .flex{
     display: flex;
 }
-.btn-jouer{
-    color: #1c2541;
-    cursor: pointer;
-    font-weight: 600;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    width: 150px;
-    font-size: 25px;
-    padding: 10px 20px;
-    background-color: #689689;
-    border-radius: 10px;
-    border: 2px solid transparent;
-}
-.btn-jouer:hover{
-    transition: 200ms;
-    border: 2px solid #1c2541;
-}
 .selected{
     border: 2px solid crimson;
 }
@@ -240,12 +222,13 @@ button{
     font-weight: 600;
     display: flex;
     justify-content: center;
-    width: 150px;
+    width: auto;
     font-size: 25px;
     padding: 15px 25px;
     background-color: #689689;
     border-radius: 10px;
     border: 2px solid transparent;
+    margin: 10px;
 }
 button:hover{
     transition: 200ms;
@@ -258,8 +241,9 @@ table{
     border: 2px solid #1c2541;
     border-radius: 5px;
     margin: auto;
+    margin-bottom: 20px;
 }
-tr td:nth-child(2){
+tr td{
     padding: 0 15px;
 }
 thead{
@@ -275,4 +259,14 @@ input{
     position: fixed;
     bottom: 20px;
     left: 20px;
+}
+.container-cross{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+#cross{
+    width: 20px;
+    cursor: pointer;
 }

@@ -14,7 +14,7 @@
 <body>
     <img class="logoAccueil" src="assets/logoLMround.svg" alt="logo">
     <div class="page-accueil">
-        <h2>Réglages</h2>
+        <h2>Accueil</h2>
         <div class="reglage-container">
             <p class="p-reglage">Nombre de joueur :</p>
             <div class="flex">
@@ -36,11 +36,43 @@
                 </select>
             </div>
         </div>
-
-        <div class="btn-jouer">JOUER</div>
-
+        <div>
+            <button id="stats">Statistiques</button>
+            <button class="btn-jouer">JOUER</button>
+        </div>
     </div>
-
+    <div class="stats displayNone pseudo">
+        <div class="container-cross">
+            <img id="cross" src="assets/times-solid.svg" alt="cross">
+        </div>
+        <p>Choisit un pseudo pour afficher ces stats</p>
+        <input type="text" id="pseudoStats">
+        <button id="validerPseudo">Valider</button>
+        <div class="container-stats">
+            <table class="tableauDesStats displayNone">
+                <tr>
+                    <td>Pseudo</td>
+                    <td id="li-1"></td>
+                </tr>
+                <tr>
+                    <td>Victoires</td>
+                    <td id="li-2"></td>
+                </tr>
+                <tr>
+                    <td>Défaites</td>
+                    <td id="li-3"></td>
+                </tr>
+                <tr>
+                    <td>Egalités</td>
+                    <td id="li-4"></td>
+                </tr>
+                <tr>
+                    <td>Parties</td>
+                    <td id="li-5"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <div class="pseudo joueur1 displayNone">
         <p>Joueur n°1 choisit ton pseudo :</p>
         <input type="text" id="pseudoJ1">
@@ -65,7 +97,6 @@
     <div class="resultat displayNone">
         <h2>Résultats</h2>
         <div class="votreScore"></div>
-        <!-- <p class="p-rejouer">Veux-tu rejouer ?</p> -->
         <div class="btn-jouer rejouer">REJOUER</div>
     </div>
     <section class="section-header">
@@ -76,7 +107,7 @@
     <section class="section-zone_de_jeu">
         <div class="zone_de_jeu"></div>
     </section>
- 
+    <div class="stats"></div>
     <script src="script.js"></script>
 
 </body>

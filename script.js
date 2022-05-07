@@ -18,6 +18,12 @@ const choixPseudoJ2 = document.querySelector('.joueur2');
 const choixPseudoJ3 = document.querySelector('.joueur3');
 const choixPseudoJ4 = document.querySelector('.joueur4');
 const nomJoueur = document.querySelector('.nomJoueur');
+const btnAfficheStats = document.querySelector('#stats');
+const statsPseudo = document.querySelector('.stats');
+const inputTextStats = document.querySelector('#pseudoStats');
+const btnValiderPseudoStats = document.querySelector('#validerPseudo');
+const tableauDesStats = document.querySelector('.tableauDesStats');
+const cross = document.querySelector('#cross');
 
 var nbCarteMemo = 0;
 var nbCarteRetourneeActuellement = 0;
@@ -35,7 +41,7 @@ btnJouer.onclick = () => {
     var modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
     var theme = choixTheme.options[choixTheme.selectedIndex].value;
     zone_de_jeu.classList.remove('displayNone');
-    if(theme == "couleurs") nbCarteMemo = 2;
+    if(theme == "couleurs") nbCarteMemo = 12;
     if(theme == "zodiaque") nbCarteMemo = 24;
     pageAccueil.classList.add('displayNone');
     choixPseudoJ1.classList.remove('displayNone');
@@ -214,6 +220,7 @@ const imagesIdentiques = () => {
     nbTour++;
     score++;
     scores[numeroJoueurActuel]++
+    console.log("scores : "+scores);
     
     var cartesRetournees = document.querySelectorAll('.retournee');
     setTimeout(() => {
@@ -251,6 +258,7 @@ const retirerChildFace1 = (cartesRetournees) => {
 // fonction qui affiche les score en fin de partie et qui réinitialise le jeu lorsqu'on clique sur le bouton rejouer
 const finDuJeu = (modeDeJeu) => {
     setTimeout(() => {
+            numeroJoueurActuel = 0;
             document.body.style.backgroundColor = "#1c2541";
             nomJoueur.classList.add('displayNone');
             zone_de_jeu.classList.add('displayNone');
@@ -258,15 +266,30 @@ const finDuJeu = (modeDeJeu) => {
             if(modeDeJeu <= 1) { // cas du mode 1 joueur
                 votreScore.innerHTML = pseudos[0]+" tu as mis <b>"+nbTour+"</b> tours pour tout trouver.";
             } else {
+                var scoreMax = 4;
+                if(scores[0] > scores[1] && scores[0] > scores[2] && scores[0] > scores[3]) scoreMax = 0;
+                if(scores[1] > scores[0] && scores[1] > scores[2] && scores[1] > scores[3]) scoreMax = 1;
+                if(scores[2] > scores[0] && scores[2] > scores[1] && scores[2] > scores[3]) scoreMax = 2;
+                if(scores[3] > scores[0] && scores[3] > scores[1] && scores[3] > scores[2]) scoreMax = 3;
+            
                 if(pseudos.length == 4){
-                    let x = scores.indexOf(Math.max(...scores))
-                    votreScore.innerHTML = "<p>"+pseudos[x]+", bravo tu as gagné</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr><tr><td>"+pseudos[2]+"</td><td>"+scores[2]+"</td></tr><tr><td>"+pseudos[3]+"</td><td>"+scores[3]+"</td></tr></tbody></table>"
+                    if(scoreMax == 4) {
+                        votreScore.innerHTML ="<p>Egalité ! Pas de gagnant</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr><tr><td>"+pseudos[2]+"</td><td>"+scores[2]+"</td></tr><tr><td>"+pseudos[3]+"</td><td>"+scores[3]+"</td></tr></tbody></table>"
+                    } else {
+                        votreScore.innerHTML = "<p>"+pseudos[scoreMax]+", bravo tu as gagné !</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr><tr><td>"+pseudos[2]+"</td><td>"+scores[2]+"</td></tr><tr><td>"+pseudos[3]+"</td><td>"+scores[3]+"</td></tr></tbody></table>"
+                    }
                 } else if(pseudos.length == 3){
-                    let x = scores.indexOf(Math.max(...scores))
-                    votreScore.innerHTML = "<p>"+pseudos[x]+", bravo tu as gagné</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr><tr><td>"+pseudos[2]+"</td><td>"+scores[2]+"</td></tr></tbody></table>"
+                    if(scoreMax == 4) {
+                        votreScore.innerHTML ="<p>Egalité ! Pas de gagnant</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr><tr><td>"+pseudos[2]+"</td><td>"+scores[2]+"</td></tr></tbody></table>"
+                    } else {
+                        votreScore.innerHTML = "<p>"+pseudos[scoreMax]+", bravo tu as gagné !</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr><tr><td>"+pseudos[2]+"</td><td>"+scores[2]+"</td></tr></tbody></table>"
+                    }
                 } if(pseudos.length == 2){
-                    let x = scores.indexOf(Math.max(...scores))
-                    votreScore.innerHTML = "<p>"+pseudos[x]+", bravo tu as gagné</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr></tbody></table>"
+                    if(scoreMax == 4) {
+                        votreScore.innerHTML ="<p>Egalité ! Pas de gagnant</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr></tbody></table>"
+                    } else {
+                        votreScore.innerHTML = "<p>"+pseudos[scoreMax]+", bravo tu as gagné !</p><br><table><caption>Scores</caption><tbody><tr><td>"+pseudos[0]+"</td><td>"+scores[0]+"</td></tr><tr><td>"+pseudos[1]+"</td><td>"+scores[1]+"</td></tr></tbody></table>"
+                    }
                 }
             }
             rejouer.onclick = () => {
@@ -286,44 +309,47 @@ const finDuJeu = (modeDeJeu) => {
     },2000)
 }
 
-var tab1 = [5,5,4,3];
-var tab2 = [5,5,5,5];
-var tab3 = [5,5,4,3];
-var tab4 = [5,5,4,3];
-
-const verifDesScores = () => { ///////////////////////////////////////  à finir
-    scores = [5,5,5,5]
-    var verifScore = scores;
-    console.log("verifScore "+verifScore);
-    var egalite = 1;
-
-    var posScoreMax1 = verifScore.indexOf(Math.max(...verifScore))
-    verifScore[posScoreMax1] = 0;
-    console.log("verifScore au 1er splice : "+verifScore);
-    console.log("posScoreMax1 : "+posScoreMax1);
-    var posScoreMax2 = verifScore.indexOf(Math.max(...verifScore))
-    verifScore[posScoreMax2] = 0;
-    console.log("verifScore au 2ieme splice : "+verifScore);
-    console.log("posScoreMax2 : "+posScoreMax2);
-    if(scores[posScoreMax1] == scores[posScoreMax2]) {
-        console.log("premier if 1 == 2 ?");
-        egalite++;
-        var posScoreMax3 = verifScore.indexOf(Math.max(...verifScore))
-        verifScore[posScoreMax3] = 0;
-        console.log("verifScore au 3ieme splice : "+verifScore);
-        console.log("posScoreMax3 : "+posScoreMax3);
+btnAfficheStats.onclick = () => {
+    statsPseudo.classList.remove('displayNone');
+    pageAccueil.classList.add('displayNone');
+    cross.onclick = () => {
+        statsPseudo.classList.add('displayNone');
+        pageAccueil.classList.remove('displayNone');
     }
-    if(scores[posScoreMax2] == scores[posScoreMax3]) {
-        console.log("deuxieme if 2 == 3 ?");
-        verifScore[posScoreMax3] = 0;
-        egalite++;
-        var posScoreMax4 = verifScore.indexOf(Math.max(...verifScore))
-        console.log("verifScore au 4ieme splice : "+verifScore);
-        console.log("posScoreMax4 : "+posScoreMax4);
+    btnValiderPseudoStats.onclick = () => {
+        if(inputTextStats.value.length == 0) {
+            alert('Veuillez renseigner un pseudo')
+        } else {
+            affichageStats(inputTextStats.value);
+        }
     }
-    if(scores[posScoreMax3] == scores[posScoreMax4]) egalite++;
-
-    console.log("egalite : "+egalite);
 }
 
-verifDesScores();
+const affichageStats = (pseudoJoueur) => {
+    var li1 = document.querySelector('#li-1');
+    var li2 = document.querySelector('#li-2');
+    var li3 = document.querySelector('#li-3');
+    var li4 = document.querySelector('#li-4');
+    var li5 = document.querySelector('#li-5');
+    var requestURL = 'data.json';
+    var request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = () => {
+        var data = request.response;
+        for (let i = 0; i < data.length; i++) {
+            console.log(data[i].pseudo);
+            if(data[i].pseudo == pseudoJoueur) {
+                console.log("un pseudo du même nom existe");
+                tableauDesStats.classList.remove('displayNone');
+                li1.textContent = data[i].pseudo;
+                li2.textContent = data[i].victoires;
+                li3.textContent = data[i].defaites;
+                li4.textContent = data[i].egalites;
+                li5.textContent = data[i].partiesjouees;
+            }
+        }
+    }
+}
+

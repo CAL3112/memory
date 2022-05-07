@@ -1,0 +1,17 @@
+[
+       { 
+            "pseudo": "Lucas",
+            "victoires": 15,
+            "defaites": 2,
+            "egalites": 3,
+            "partiesjouees": 20
+        },
+
+        { 
+            "pseudo": "Léo",
+            "victoires": 10,
+            "defaites": 5,
+            "egalites": 6,
+            "partiesjouees": 21
+        }
+]
