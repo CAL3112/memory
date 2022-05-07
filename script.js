@@ -41,7 +41,7 @@ btnJouer.onclick = () => {
     var modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
     var theme = choixTheme.options[choixTheme.selectedIndex].value;
     zone_de_jeu.classList.remove('displayNone');
-    if(theme == "couleurs") nbCarteMemo = 12;
+    if(theme == "couleurs") nbCarteMemo = 2;
     if(theme == "zodiaque") nbCarteMemo = 24;
     pageAccueil.classList.add('displayNone');
     choixPseudoJ1.classList.remove('displayNone');
@@ -339,7 +339,6 @@ const affichageStats = (pseudoJoueur) => {
     request.onload = () => {
         var data = request.response;
         for (let i = 0; i < data.length; i++) {
-            console.log(data[i].pseudo);
             if(data[i].pseudo == pseudoJoueur) {
                 console.log("un pseudo du même nom existe");
                 tableauDesStats.classList.remove('displayNone');
