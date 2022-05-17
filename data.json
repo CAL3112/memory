@@ -9,9 +9,9 @@
 
         { 
             "pseudo": "Léo",
-            "victoires": 10,
-            "defaites": 5,
-            "egalites": 6,
-            "partiesjouees": 21
+            "victoires": 75,
+            "defaites": 20,
+            "egalites": 5,
+            "partiesjouees": 100
         }
 ]

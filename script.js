@@ -24,6 +24,7 @@ const inputTextStats = document.querySelector('#pseudoStats');
 const btnValiderPseudoStats = document.querySelector('#validerPseudo');
 const tableauDesStats = document.querySelector('.tableauDesStats');
 const cross = document.querySelector('#cross');
+const logoHome = document.querySelector('.logoHome');
 
 var nbCarteMemo = 0;
 var nbCarteRetourneeActuellement = 0;
@@ -126,7 +127,7 @@ function inserLogo() {
     cartesCachee.forEach((carte) => {
         let logo = document.createElement('img');
         logo.className = "logo"
-        logo.src = "assets/logoLM.svg";
+        logo.src = "assets/front/logoLM.svg";
         carte.appendChild(logo);
         }
     )
@@ -292,19 +293,25 @@ const finDuJeu = (modeDeJeu) => {
                     }
                 }
             }
+            // console.log("joueur qui a gagné : "+pseudos[scoreMax]);
+            // const fs = require("fs");
+            // var dataJSON = fs.readFileSync("data.json");
+            // var myObject = JSON.parse(dataJSON);
+            // let newData = {
+
+            //     pseudo: pseudos[scoreMax],
+            // }
+            
+            // myObject.push(newData);
+
+            // var newData2 = JSON.stringify(myObject);
+            // fs.writeFile("data2.json", newData2, (err) => {
+            //     if(err) throw err;
+            //     console.log("Data added");
+            // });
+
             rejouer.onclick = () => {
-                resultat.classList.add('displayNone')
-                pageAccueil.classList.remove('displayNone')
-                score = 0;
-                nbTour = 0;
-                pseudos = [];
-                scores = [0, 0, 0, 0];
-                var modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
-                var theme = choixTheme.options[choixTheme.selectedIndex].value;
-                var trouvee = document.querySelectorAll('.trouvee');
-                trouvee.forEach((e) => {
-                    zone_de_jeu.removeChild(e);
-                })
+                reset();
             }
     },2000)
 }
@@ -343,12 +350,34 @@ const affichageStats = (pseudoJoueur) => {
                 console.log("un pseudo du même nom existe");
                 tableauDesStats.classList.remove('displayNone');
                 li1.textContent = data[i].pseudo;
-                li2.textContent = data[i].victoires;
-                li3.textContent = data[i].defaites;
-                li4.textContent = data[i].egalites;
+                li2.textContent = Math.ceil((data[i].victoires/data[i].partiesjouees)*100)+"%";
+                li3.textContent = Math.floor((data[i].defaites/data[i].partiesjouees)*100)+"%";
+                li4.textContent = Math.ceil((data[i].egalites/data[i].partiesjouees)*100)+"%";
                 li5.textContent = data[i].partiesjouees;
             }
         }
     }
 }
 
+logoHome.onclick = () => {refresh();};
+
+
+const reset = () => {
+    resultat.classList.add('displayNone')
+    pageAccueil.classList.remove('displayNone')
+    score = 0;
+    nbTour = 0;
+    pseudos = [];
+    scores = [0, 0, 0, 0];
+    modeDeJeu = NbJoueurSelected.options[NbJoueurSelected.selectedIndex].value;
+    theme = choixTheme.options[choixTheme.selectedIndex].value;
+    var carte = document.querySelectorAll('.carte');
+    zone_de_jeu.classList.add('displayNone');
+    carte.forEach((e) => {
+    zone_de_jeu.removeChild(e);
+    })
+}
+
+const refresh = () => {
+    location.reload();
+}
